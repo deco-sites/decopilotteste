@@ -9,20 +9,23 @@ export interface Props {
   name?: string;
 
   count?: number;
+
+  /**
+   * @format color-input
+   * @description The background color of the section.
+   * @default #22c55e
+   */
+  backgroundColor?: string;
 }
 
-export default function Section({ name = "It Works!", count = 0 }: Props) {
-  /**
-   * usePartialSection is a nice hook for getting the HTMX link to render this section,
-   * but with the following Props
-   */
+export default function Section({ name = "It Works!", count = 0, backgroundColor = "#22c55e" }: Props) {
   const downLink = usePartialSection({ props: { count: count - 1 } });
   const upLink = usePartialSection({ props: { count: count + 1 } });
 
   return (
     <div
       id="it-works"
-      class="container py-10 flex flex-col h-screen w-full items-center justify-center gap-16"
+      class={`container py-10 flex flex-col h-screen w-full items-center justify-center gap-16 bg-[${backgroundColor}]`}
     >
       <div class="leading-10 text-6xl" dangerouslySetInnerHTML={{
         __html: name,
@@ -33,7 +36,7 @@ export default function Section({ name = "It Works!", count = 0 }: Props) {
           <button
             hx-target="#it-works"
             hx-swap="outerHTML"
-            hx-get={downLink["f-partial"]} // htmx link for this section with the down vote props
+            hx-get={downLink["f-partial"]}
             class="btn btn-sm btn-circle btn-outline no-animation"
           >
             <span class="inline [.htmx-request_&]:hidden">
@@ -45,7 +48,7 @@ export default function Section({ name = "It Works!", count = 0 }: Props) {
           <button
             hx-target="#it-works"
             hx-swap="outerHTML"
-            hx-get={upLink["f-partial"]} // htmx link for this section with the up vote props
+            hx-get={upLink["f-partial"]}
             class="btn btn-sm btn-circle btn-outline no-animation"
           >
             <span class="inline [.htmx-request_&]:hidden">
