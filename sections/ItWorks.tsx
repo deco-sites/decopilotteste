@@ -1,63 +1,68 @@
-import { usePartialSection } from "deco/hooks/usePartialSection.ts";
 
-export interface Props {
+import { ImageWidget } from 'apps/admin/widgets.ts';
+
+interface BannerProps {
+  /**
+   * @widget ImageWidget
+   */
+  image?: ImageWidget;
+
+  /**
+   * @widget ImageWidget
+   */
+  secondImage?: ImageWidget;
+
+  /**
+   * @widget ImageWidget
+   */
+  thirdImage?: ImageWidget;
+
   /**
    * @format rich-text
-   * @description The description of name.
-   * @default It Works!
+   * @description The main title of the banner.
    */
-  name?: string;
+  title?: string;
 
-  count?: number;
+  /**
+   * @format textarea
+   * @description The description or subtitle of the banner.
+   */
+  description?: string;
 
   /**
    * @format color-input
-   * @description The background color of the section.
-   * @default #22c55e
+   * @description The background color of the banner.
+   * @default #ffffff
    */
   backgroundColor?: string;
+
+  /**
+   * @format color-input
+   * @description The text color of the banner.
+   * @default #000000
+   */
+  textColor?: string;
 }
 
-export default function Section({ name = "It Works!", count = 0, backgroundColor = "#22c55e" }: Props) {
-  const downLink = usePartialSection({ props: { count: count - 1 } });
-  const upLink = usePartialSection({ props: { count: count + 1 } });
-
+export default function Banner({
+  image = "https://ozksgdmyrqcxcwhnbepg.supabase.co/storage/v1/object/public/assets/1818/6fe9404a-f69c-472a-b521-78f6c1f87326",
+  secondImage = "https://ozksgdmyrqcxcwhnbepg.supabase.co/storage/v1/object/public/assets/1818/6fe9404a-f69c-472a-b521-78f6c1f87326",
+  thirdImage = "https://ozksgdmyrqcxcwhnbepg.supabase.co/storage/v1/object/public/assets/1818/6fe9404a-f69c-472a-b521-78f6c1f87326",
+  title = "Welcome to My Blog",
+  description = "Discover insightful articles and engaging content.",
+  backgroundColor = "#ffffff",
+  textColor = "#000000",
+}: BannerProps) {
   return (
     <div
-      id="it-works"
-      class={`container py-10 flex flex-col h-screen w-full items-center justify-center gap-16 bg-[${backgroundColor}]`}
+      class={`flex flex-col items-center justify-center p-8 bg-[${backgroundColor}] text-[${textColor}]`}
     >
-      <div class="leading-10 text-6xl" dangerouslySetInnerHTML={{
-        __html: name,
-      }}/>
-
-      <div class="flex flex-col items-center justify-center gap-2">
-        <div class="flex items-center gap-4">
-          <button
-            hx-target="#it-works"
-            hx-swap="outerHTML"
-            hx-get={downLink["f-partial"]}
-            class="btn btn-sm btn-circle btn-outline no-animation"
-          >
-            <span class="inline [.htmx-request_&]:hidden">
-              -
-            </span>
-            <span class="loading loading-spinner hidden [.htmx-request_&]:inline" />
-          </button>
-          <span>{count}</span>
-          <button
-            hx-target="#it-works"
-            hx-swap="outerHTML"
-            hx-get={upLink["f-partial"]}
-            class="btn btn-sm btn-circle btn-outline no-animation"
-          >
-            <span class="inline [.htmx-request_&]:hidden">
-              +
-            </span>
-            <span class="loading loading-spinner hidden [.htmx-request_&]:inline" />
-          </button>
-        </div>
-        <div class="text-sm">Powered by HTMX</div>
+      <img src={image} alt="Banner Image" class="w-full max-w-4xl mb-8" />
+      <h1 class="text-4xl font-bold mb-4">{title}</h1>
+      <p class="text-lg mb-8">{description}</p>
+      <div class="flex justify-center mb-8">
+        <img src={secondImage} alt="Second Image" class="w-1/3 mr-4" />
+        <img src={thirdImage} alt="Third Image" class="w-1/3" />
       </div>
     </div>
   );

@@ -55,5 +55,13 @@
   "/.deco/blocks/Preview%20%2Fsections%2FPresentationSection.tsx.json": {
     "blockType": "sections",
     "__resolveType": "site/sections/PresentationSection.tsx"
+  },
+  "/.deco/blocks/Preview%20%2Fsections%2FSoccerBanner.tsx.json": {
+    "blockType": "sections",
+    "__resolveType": "site/sections/SoccerBanner.tsx"
+  },
+  "/.deco/blocks/Preview%20%2Fsections%2FBannerWithGreenBackground.tsx.json": {
+    "blockType": "sections",
+    "__resolveType": "site/sections/BannerWithGreenBackground.tsx"
   }
 }
